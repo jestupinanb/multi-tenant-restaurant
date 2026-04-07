@@ -234,6 +234,15 @@ describe('MenuItemsService', () => {
       );
     });
 
+    it('should throw NotFoundException when item belongs to a different restaurant (IDOR)', async () => {
+      mockModel.findOneAndUpdate.mockReturnValue({
+        exec: jest.fn().mockResolvedValue(null),
+      });
+      await expect(
+        service.update(otherRestaurantId, itemId, { price: 1.0 }),
+      ).rejects.toThrow(NotFoundException);
+    });
+
     it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
       mockRestaurantsService.findById.mockRejectedValue(
         new NotFoundException('Restaurant not found'),
@@ -280,6 +289,15 @@ describe('MenuItemsService', () => {
         _id: itemId,
         restaurantId,
       });
+    });
+
+    it('should throw NotFoundException when item belongs to a different restaurant (IDOR)', async () => {
+      mockModel.findOneAndDelete.mockReturnValue({
+        exec: jest.fn().mockResolvedValue(null),
+      });
+      await expect(
+        service.remove(otherRestaurantId, itemId),
+      ).rejects.toThrow(NotFoundException);
     });
 
     it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
