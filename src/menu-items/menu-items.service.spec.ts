@@ -191,7 +191,7 @@ describe('MenuItemsService', () => {
       expect(result).toEqual(updatedMockMenuItem);
       expect(mockModel.findOneAndUpdate).toHaveBeenCalledWith(
         { _id: itemId, restaurantId },
-        dto,
+        { $set: dto },
         { new: true, runValidators: true },
       );
     });

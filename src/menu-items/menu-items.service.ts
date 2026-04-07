@@ -66,7 +66,7 @@ export class MenuItemsService {
       updated = await this.menuItemModel
         .findOneAndUpdate(
           { _id: id, restaurantId },
-          dto,
+          { $set: dto },
           { new: true, runValidators: true },
         )
         .exec();
