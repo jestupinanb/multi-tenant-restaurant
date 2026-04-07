@@ -34,7 +34,8 @@ export class MenuItemsService {
     const item = await this.menuItemModel
       .findOne({ _id: id, restaurantId })
       .exec();
-    if (!item) throw new NotFoundException(`MenuItem ${id} not found`);
+    if (!item)
+      throw new NotFoundException(`MenuItem ${id.toString()} not found`);
     return item;
   }
 
@@ -78,7 +79,8 @@ export class MenuItemsService {
       }
       throw error;
     }
-    if (!updated) throw new NotFoundException(`MenuItem ${id} not found`);
+    if (!updated)
+      throw new NotFoundException(`MenuItem ${id.toString()} not found`);
     return updated;
   }
 
@@ -90,6 +92,7 @@ export class MenuItemsService {
     const deleted = await this.menuItemModel
       .findOneAndDelete({ _id: id, restaurantId })
       .exec();
-    if (!deleted) throw new NotFoundException(`MenuItem ${id} not found`);
+    if (!deleted)
+      throw new NotFoundException(`MenuItem ${id.toString()} not found`);
   }
 }

@@ -118,7 +118,9 @@ describe('OrdersService', () => {
 
       await service.create(restaurantId, dto);
 
-      const createArg = mockModel.create.mock.calls[0][0] as Record<string, unknown>;
+      const createArg = (
+        mockModel.create.mock.calls as unknown[][]
+      )[0][0] as Record<string, unknown>;
       expect(createArg).not.toHaveProperty('status');
     });
 
@@ -178,7 +180,12 @@ describe('OrdersService', () => {
 
     it('should round totalAmount for floating-point precision (ORDER-02)', async () => {
       // 1.10 * 3 = 3.3000000000000003 in JS — should be 3.30
-      const floatItem = { _id: menuItemId1, restaurantId, name: 'Coffee', price: 1.1 };
+      const floatItem = {
+        _id: menuItemId1,
+        restaurantId,
+        name: 'Coffee',
+        price: 1.1,
+      };
       mockMenuItemsService.findOne.mockResolvedValue(floatItem);
       mockModel.create.mockResolvedValue({});
 
@@ -193,14 +200,18 @@ describe('OrdersService', () => {
         expect.objectContaining({ totalAmount: 3.3 }),
       );
 
-      const createArg = mockModel.create.mock.calls[0][0] as Record<string, unknown>;
+      const createArg = (
+        mockModel.create.mock.calls as unknown[][]
+      )[0][0] as Record<string, unknown>;
       // Verify it's NOT the floating-point imprecise value
       expect(createArg.totalAmount).not.toBe(3.3000000000000003);
     });
 
     it('should throw NotFoundException when menuItemId belongs to a different restaurant (ORDER-03)', async () => {
       mockMenuItemsService.findOne.mockRejectedValue(
-        new NotFoundException(`MenuItem ${menuItemId1.toHexString()} not found`),
+        new NotFoundException(
+          `MenuItem ${menuItemId1.toHexString()} not found`,
+        ),
       );
 
       const dto = {
@@ -208,7 +219,9 @@ describe('OrdersService', () => {
         items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
       };
 
-      await expect(service.create(restaurantId, dto)).rejects.toThrow(NotFoundException);
+      await expect(service.create(restaurantId, dto)).rejects.toThrow(
+        NotFoundException,
+      );
     });
 
     it('should throw NotFoundException when restaurant does not exist (D-13)', async () => {
@@ -221,7 +234,9 @@ describe('OrdersService', () => {
         items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
       };
 
-      await expect(service.create(restaurantId, dto)).rejects.toThrow(NotFoundException);
+      await expect(service.create(restaurantId, dto)).rejects.toThrow(
+        NotFoundException,
+      );
     });
 
     it('should call restaurantsService.findById before processing items (D-13 fail-fast)', async () => {
@@ -234,7 +249,9 @@ describe('OrdersService', () => {
         items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
       };
 
-      await expect(service.create(restaurantId, dto)).rejects.toThrow(NotFoundException);
+      await expect(service.create(restaurantId, dto)).rejects.toThrow(
+        NotFoundException,
+      );
 
       // Verify menuItemsService was NOT called — restaurant check happens first
       expect(mockMenuItemsService.findOne).not.toHaveBeenCalled();
@@ -276,7 +293,9 @@ describe('OrdersService', () => {
       );
 
       // Verify the ObjectId has the same hex value as the string input
-      const calledWithObjectId = mockMenuItemsService.findOne.mock.calls[0][1] as Types.ObjectId;
+      const calledWithObjectId = (
+        mockMenuItemsService.findOne.mock.calls as unknown[][]
+      )[0][1] as Types.ObjectId;
       expect(calledWithObjectId.toHexString()).toBe(menuItemId1.toHexString());
     });
 
@@ -300,7 +319,7 @@ describe('OrdersService', () => {
       expect(mockMenuItemsService.findOne).toHaveBeenCalledTimes(2);
 
       // items array has length 2
-      const createArg = mockModel.create.mock.calls[0][0] as {
+      const createArg = (mockModel.create.mock.calls as unknown[][])[0][0] as {
         items: unknown[];
         totalAmount: number;
       };
@@ -323,7 +342,9 @@ describe('OrdersService', () => {
         items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
       };
 
-      await expect(service.create(restaurantId, dto)).rejects.toThrow(NotFoundException);
+      await expect(service.create(restaurantId, dto)).rejects.toThrow(
+        NotFoundException,
+      );
       // model.create should never be called when item validation fails
       expect(mockModel.create).not.toHaveBeenCalled();
     });

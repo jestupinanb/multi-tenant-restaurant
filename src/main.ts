@@ -20,4 +20,4 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`Application listening on port ${port}`);
 }
-bootstrap();
+void bootstrap();

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import mongoose, { Types } from 'mongoose';
 import { RestaurantSchema } from './restaurants/schemas/restaurant.schema';
 import { MenuItemSchema } from './menu-items/schemas/menu-item.schema';
-import { OrderSchema, OrderItemSchema } from './orders/schemas/order.schema';
+import { OrderSchema } from './orders/schemas/order.schema';
 
 const MONGODB_URI =
   process.env.MONGODB_URI || 'mongodb://localhost:27017/restaurant-api';
@@ -82,35 +82,40 @@ async function seed() {
       restaurantId: restaurantId1,
       name: 'Margherita Pizza',
       price: 12.99,
-      description: 'Classic Neapolitan pizza with San Marzano tomatoes, fresh mozzarella, and basil.',
+      description:
+        'Classic Neapolitan pizza with San Marzano tomatoes, fresh mozzarella, and basil.',
     },
     {
       _id: menuItemIds.bi2,
       restaurantId: restaurantId1,
       name: 'Spaghetti Carbonara',
-      price: 14.50,
-      description: 'Al dente spaghetti tossed with guanciale, eggs, Pecorino Romano, and black pepper.',
+      price: 14.5,
+      description:
+        'Al dente spaghetti tossed with guanciale, eggs, Pecorino Romano, and black pepper.',
     },
     {
       _id: menuItemIds.bi3,
       restaurantId: restaurantId1,
       name: 'Bruschetta',
       price: 8.99,
-      description: 'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
+      description:
+        'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
     },
     {
       _id: menuItemIds.bi4,
       restaurantId: restaurantId1,
       name: 'Tiramisu',
-      price: 9.50,
-      description: 'Layers of espresso-soaked ladyfingers with mascarpone cream and cocoa dusting.',
+      price: 9.5,
+      description:
+        'Layers of espresso-soaked ladyfingers with mascarpone cream and cocoa dusting.',
     },
     {
       _id: menuItemIds.bi5,
       restaurantId: restaurantId1,
       name: 'Risotto ai Funghi',
-      price: 16.00,
-      description: 'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
+      price: 16.0,
+      description:
+        'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
     },
 
     // Dragon Palace — Chinese/Asian cuisine (D-04)
@@ -119,35 +124,40 @@ async function seed() {
       restaurantId: restaurantId2,
       name: 'Kung Pao Chicken',
       price: 13.99,
-      description: 'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
+      description:
+        'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
     },
     {
       _id: menuItemIds.di2,
       restaurantId: restaurantId2,
       name: 'Dim Sum Platter',
-      price: 11.50,
-      description: 'Assorted steamed dumplings including har gow, siu mai, and char siu bao.',
+      price: 11.5,
+      description:
+        'Assorted steamed dumplings including har gow, siu mai, and char siu bao.',
     },
     {
       _id: menuItemIds.di3,
       restaurantId: restaurantId2,
       name: 'Peking Duck',
       price: 24.99,
-      description: 'Crispy lacquered duck served with steamed pancakes, hoisin sauce, and scallions.',
+      description:
+        'Crispy lacquered duck served with steamed pancakes, hoisin sauce, and scallions.',
     },
     {
       _id: menuItemIds.di4,
       restaurantId: restaurantId2,
       name: 'Fried Rice',
       price: 9.99,
-      description: 'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
+      description:
+        'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
     },
     {
       _id: menuItemIds.di5,
       restaurantId: restaurantId2,
       name: 'Spring Rolls',
-      price: 7.50,
-      description: 'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
+      price: 7.5,
+      description:
+        'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
     },
   ]);
 
@@ -160,8 +170,18 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Alice Johnson',
       items: [
-        { menuItemId: menuItemIds.bi1, name: 'Margherita Pizza', price: 12.99, quantity: 2 },
-        { menuItemId: menuItemIds.bi3, name: 'Bruschetta', price: 8.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.bi1,
+          name: 'Margherita Pizza',
+          price: 12.99,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.bi3,
+          name: 'Bruschetta',
+          price: 8.99,
+          quantity: 1,
+        },
       ],
       totalAmount: 12.99 * 2 + 8.99 * 1, // 34.97
       status: 'Completed',
@@ -171,10 +191,20 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Bob Smith',
       items: [
-        { menuItemId: menuItemIds.bi2, name: 'Spaghetti Carbonara', price: 14.50, quantity: 1 },
-        { menuItemId: menuItemIds.bi4, name: 'Tiramisu', price: 9.50, quantity: 2 },
+        {
+          menuItemId: menuItemIds.bi2,
+          name: 'Spaghetti Carbonara',
+          price: 14.5,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi4,
+          name: 'Tiramisu',
+          price: 9.5,
+          quantity: 2,
+        },
       ],
-      totalAmount: 14.50 * 1 + 9.50 * 2, // 33.50
+      totalAmount: 14.5 * 1 + 9.5 * 2, // 33.50
       status: 'Completed',
     },
     {
@@ -182,10 +212,20 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Carlos Rivera',
       items: [
-        { menuItemId: menuItemIds.bi5, name: 'Risotto ai Funghi', price: 16.00, quantity: 1 },
-        { menuItemId: menuItemIds.bi3, name: 'Bruschetta', price: 8.99, quantity: 2 },
+        {
+          menuItemId: menuItemIds.bi5,
+          name: 'Risotto ai Funghi',
+          price: 16.0,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi3,
+          name: 'Bruschetta',
+          price: 8.99,
+          quantity: 2,
+        },
       ],
-      totalAmount: 16.00 * 1 + 8.99 * 2, // 33.98
+      totalAmount: 16.0 * 1 + 8.99 * 2, // 33.98
       status: 'Pending',
     },
     {
@@ -193,11 +233,26 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Diana Lee',
       items: [
-        { menuItemId: menuItemIds.bi1, name: 'Margherita Pizza', price: 12.99, quantity: 1 },
-        { menuItemId: menuItemIds.bi2, name: 'Spaghetti Carbonara', price: 14.50, quantity: 1 },
-        { menuItemId: menuItemIds.bi4, name: 'Tiramisu', price: 9.50, quantity: 1 },
+        {
+          menuItemId: menuItemIds.bi1,
+          name: 'Margherita Pizza',
+          price: 12.99,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi2,
+          name: 'Spaghetti Carbonara',
+          price: 14.5,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi4,
+          name: 'Tiramisu',
+          price: 9.5,
+          quantity: 1,
+        },
       ],
-      totalAmount: 12.99 * 1 + 14.50 * 1 + 9.50 * 1, // 36.99
+      totalAmount: 12.99 * 1 + 14.5 * 1 + 9.5 * 1, // 36.99
       status: 'Pending',
     },
     {
@@ -205,9 +260,14 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Eva Martinez',
       items: [
-        { menuItemId: menuItemIds.bi5, name: 'Risotto ai Funghi', price: 16.00, quantity: 2 },
+        {
+          menuItemId: menuItemIds.bi5,
+          name: 'Risotto ai Funghi',
+          price: 16.0,
+          quantity: 2,
+        },
       ],
-      totalAmount: 16.00 * 2, // 32.00
+      totalAmount: 16.0 * 2, // 32.00
       status: 'Completed',
     },
     {
@@ -215,8 +275,18 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Frank Chen',
       items: [
-        { menuItemId: menuItemIds.bi1, name: 'Margherita Pizza', price: 12.99, quantity: 3 },
-        { menuItemId: menuItemIds.bi3, name: 'Bruschetta', price: 8.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.bi1,
+          name: 'Margherita Pizza',
+          price: 12.99,
+          quantity: 3,
+        },
+        {
+          menuItemId: menuItemIds.bi3,
+          name: 'Bruschetta',
+          price: 8.99,
+          quantity: 1,
+        },
       ],
       totalAmount: 12.99 * 3 + 8.99 * 1, // 47.96
       status: 'Pending',
@@ -226,10 +296,20 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Grace Kim',
       items: [
-        { menuItemId: menuItemIds.bi2, name: 'Spaghetti Carbonara', price: 14.50, quantity: 2 },
-        { menuItemId: menuItemIds.bi4, name: 'Tiramisu', price: 9.50, quantity: 1 },
+        {
+          menuItemId: menuItemIds.bi2,
+          name: 'Spaghetti Carbonara',
+          price: 14.5,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.bi4,
+          name: 'Tiramisu',
+          price: 9.5,
+          quantity: 1,
+        },
       ],
-      totalAmount: 14.50 * 2 + 9.50 * 1, // 38.50
+      totalAmount: 14.5 * 2 + 9.5 * 1, // 38.50
       status: 'Pending',
     },
     {
@@ -237,11 +317,26 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Henry Wilson',
       items: [
-        { menuItemId: menuItemIds.bi3, name: 'Bruschetta', price: 8.99, quantity: 2 },
-        { menuItemId: menuItemIds.bi5, name: 'Risotto ai Funghi', price: 16.00, quantity: 1 },
-        { menuItemId: menuItemIds.bi4, name: 'Tiramisu', price: 9.50, quantity: 2 },
+        {
+          menuItemId: menuItemIds.bi3,
+          name: 'Bruschetta',
+          price: 8.99,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.bi5,
+          name: 'Risotto ai Funghi',
+          price: 16.0,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi4,
+          name: 'Tiramisu',
+          price: 9.5,
+          quantity: 2,
+        },
       ],
-      totalAmount: 8.99 * 2 + 16.00 * 1 + 9.50 * 2, // 52.98
+      totalAmount: 8.99 * 2 + 16.0 * 1 + 9.5 * 2, // 52.98
       status: 'Completed',
     },
     {
@@ -249,10 +344,20 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'Isabel Santos',
       items: [
-        { menuItemId: menuItemIds.bi1, name: 'Margherita Pizza', price: 12.99, quantity: 1 },
-        { menuItemId: menuItemIds.bi5, name: 'Risotto ai Funghi', price: 16.00, quantity: 1 },
+        {
+          menuItemId: menuItemIds.bi1,
+          name: 'Margherita Pizza',
+          price: 12.99,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi5,
+          name: 'Risotto ai Funghi',
+          price: 16.0,
+          quantity: 1,
+        },
       ],
-      totalAmount: 12.99 * 1 + 16.00 * 1, // 28.99
+      totalAmount: 12.99 * 1 + 16.0 * 1, // 28.99
       status: 'Pending',
     },
     {
@@ -260,10 +365,20 @@ async function seed() {
       restaurantId: restaurantId1,
       customerName: 'James Park',
       items: [
-        { menuItemId: menuItemIds.bi2, name: 'Spaghetti Carbonara', price: 14.50, quantity: 1 },
-        { menuItemId: menuItemIds.bi3, name: 'Bruschetta', price: 8.99, quantity: 3 },
+        {
+          menuItemId: menuItemIds.bi2,
+          name: 'Spaghetti Carbonara',
+          price: 14.5,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.bi3,
+          name: 'Bruschetta',
+          price: 8.99,
+          quantity: 3,
+        },
       ],
-      totalAmount: 14.50 * 1 + 8.99 * 3, // 41.47
+      totalAmount: 14.5 * 1 + 8.99 * 3, // 41.47
       status: 'Completed',
     },
 
@@ -273,8 +388,18 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Karen Brown',
       items: [
-        { menuItemId: menuItemIds.di1, name: 'Kung Pao Chicken', price: 13.99, quantity: 2 },
-        { menuItemId: menuItemIds.di4, name: 'Fried Rice', price: 9.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di1,
+          name: 'Kung Pao Chicken',
+          price: 13.99,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.di4,
+          name: 'Fried Rice',
+          price: 9.99,
+          quantity: 1,
+        },
       ],
       totalAmount: 13.99 * 2 + 9.99 * 1, // 37.97
       status: 'Completed',
@@ -284,10 +409,20 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Leo Tanaka',
       items: [
-        { menuItemId: menuItemIds.di3, name: 'Peking Duck', price: 24.99, quantity: 1 },
-        { menuItemId: menuItemIds.di5, name: 'Spring Rolls', price: 7.50, quantity: 2 },
+        {
+          menuItemId: menuItemIds.di3,
+          name: 'Peking Duck',
+          price: 24.99,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.di5,
+          name: 'Spring Rolls',
+          price: 7.5,
+          quantity: 2,
+        },
       ],
-      totalAmount: 24.99 * 1 + 7.50 * 2, // 39.99
+      totalAmount: 24.99 * 1 + 7.5 * 2, // 39.99
       status: 'Pending',
     },
     {
@@ -295,10 +430,20 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Maria Gonzalez',
       items: [
-        { menuItemId: menuItemIds.di2, name: 'Dim Sum Platter', price: 11.50, quantity: 3 },
-        { menuItemId: menuItemIds.di4, name: 'Fried Rice', price: 9.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di2,
+          name: 'Dim Sum Platter',
+          price: 11.5,
+          quantity: 3,
+        },
+        {
+          menuItemId: menuItemIds.di4,
+          name: 'Fried Rice',
+          price: 9.99,
+          quantity: 1,
+        },
       ],
-      totalAmount: 11.50 * 3 + 9.99 * 1, // 44.49
+      totalAmount: 11.5 * 3 + 9.99 * 1, // 44.49
       status: 'Pending',
     },
     {
@@ -306,11 +451,26 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Nick Thompson',
       items: [
-        { menuItemId: menuItemIds.di1, name: 'Kung Pao Chicken', price: 13.99, quantity: 1 },
-        { menuItemId: menuItemIds.di2, name: 'Dim Sum Platter', price: 11.50, quantity: 1 },
-        { menuItemId: menuItemIds.di5, name: 'Spring Rolls', price: 7.50, quantity: 2 },
+        {
+          menuItemId: menuItemIds.di1,
+          name: 'Kung Pao Chicken',
+          price: 13.99,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.di2,
+          name: 'Dim Sum Platter',
+          price: 11.5,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.di5,
+          name: 'Spring Rolls',
+          price: 7.5,
+          quantity: 2,
+        },
       ],
-      totalAmount: 13.99 * 1 + 11.50 * 1 + 7.50 * 2, // 40.49
+      totalAmount: 13.99 * 1 + 11.5 * 1 + 7.5 * 2, // 40.49
       status: 'Completed',
     },
     {
@@ -318,8 +478,18 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Olivia Rossi',
       items: [
-        { menuItemId: menuItemIds.di3, name: 'Peking Duck', price: 24.99, quantity: 1 },
-        { menuItemId: menuItemIds.di4, name: 'Fried Rice', price: 9.99, quantity: 2 },
+        {
+          menuItemId: menuItemIds.di3,
+          name: 'Peking Duck',
+          price: 24.99,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.di4,
+          name: 'Fried Rice',
+          price: 9.99,
+          quantity: 2,
+        },
       ],
       totalAmount: 24.99 * 1 + 9.99 * 2, // 44.97
       status: 'Pending',
@@ -329,10 +499,20 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Paul Anderson',
       items: [
-        { menuItemId: menuItemIds.di5, name: 'Spring Rolls', price: 7.50, quantity: 3 },
-        { menuItemId: menuItemIds.di1, name: 'Kung Pao Chicken', price: 13.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di5,
+          name: 'Spring Rolls',
+          price: 7.5,
+          quantity: 3,
+        },
+        {
+          menuItemId: menuItemIds.di1,
+          name: 'Kung Pao Chicken',
+          price: 13.99,
+          quantity: 1,
+        },
       ],
-      totalAmount: 7.50 * 3 + 13.99 * 1, // 36.49
+      totalAmount: 7.5 * 3 + 13.99 * 1, // 36.49
       status: 'Pending',
     },
     {
@@ -340,10 +520,20 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Quinn Murphy',
       items: [
-        { menuItemId: menuItemIds.di2, name: 'Dim Sum Platter', price: 11.50, quantity: 2 },
-        { menuItemId: menuItemIds.di3, name: 'Peking Duck', price: 24.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di2,
+          name: 'Dim Sum Platter',
+          price: 11.5,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.di3,
+          name: 'Peking Duck',
+          price: 24.99,
+          quantity: 1,
+        },
       ],
-      totalAmount: 11.50 * 2 + 24.99 * 1, // 47.99
+      totalAmount: 11.5 * 2 + 24.99 * 1, // 47.99
       status: 'Completed',
     },
     {
@@ -351,11 +541,26 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Rachel Cohen',
       items: [
-        { menuItemId: menuItemIds.di4, name: 'Fried Rice', price: 9.99, quantity: 2 },
-        { menuItemId: menuItemIds.di5, name: 'Spring Rolls', price: 7.50, quantity: 1 },
-        { menuItemId: menuItemIds.di1, name: 'Kung Pao Chicken', price: 13.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di4,
+          name: 'Fried Rice',
+          price: 9.99,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.di5,
+          name: 'Spring Rolls',
+          price: 7.5,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.di1,
+          name: 'Kung Pao Chicken',
+          price: 13.99,
+          quantity: 1,
+        },
       ],
-      totalAmount: 9.99 * 2 + 7.50 * 1 + 13.99 * 1, // 41.47
+      totalAmount: 9.99 * 2 + 7.5 * 1 + 13.99 * 1, // 41.47
       status: 'Pending',
     },
     {
@@ -363,10 +568,20 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Sam Patel',
       items: [
-        { menuItemId: menuItemIds.di3, name: 'Peking Duck', price: 24.99, quantity: 1 },
-        { menuItemId: menuItemIds.di2, name: 'Dim Sum Platter', price: 11.50, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di3,
+          name: 'Peking Duck',
+          price: 24.99,
+          quantity: 1,
+        },
+        {
+          menuItemId: menuItemIds.di2,
+          name: 'Dim Sum Platter',
+          price: 11.5,
+          quantity: 1,
+        },
       ],
-      totalAmount: 24.99 * 1 + 11.50 * 1, // 36.49
+      totalAmount: 24.99 * 1 + 11.5 * 1, // 36.49
       status: 'Completed',
     },
     {
@@ -374,11 +589,26 @@ async function seed() {
       restaurantId: restaurantId2,
       customerName: 'Tina Nguyen',
       items: [
-        { menuItemId: menuItemIds.di1, name: 'Kung Pao Chicken', price: 13.99, quantity: 2 },
-        { menuItemId: menuItemIds.di5, name: 'Spring Rolls', price: 7.50, quantity: 2 },
-        { menuItemId: menuItemIds.di4, name: 'Fried Rice', price: 9.99, quantity: 1 },
+        {
+          menuItemId: menuItemIds.di1,
+          name: 'Kung Pao Chicken',
+          price: 13.99,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.di5,
+          name: 'Spring Rolls',
+          price: 7.5,
+          quantity: 2,
+        },
+        {
+          menuItemId: menuItemIds.di4,
+          name: 'Fried Rice',
+          price: 9.99,
+          quantity: 1,
+        },
       ],
-      totalAmount: 13.99 * 2 + 7.50 * 2 + 9.99 * 1, // 52.97
+      totalAmount: 13.99 * 2 + 7.5 * 2 + 9.99 * 1, // 52.97
       status: 'Pending',
     },
   ]);

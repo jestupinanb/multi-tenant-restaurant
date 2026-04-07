@@ -13,7 +13,7 @@ export class RestaurantsService {
   async findById(id: Types.ObjectId): Promise<RestaurantDocument> {
     const restaurant = await this.restaurantModel.findById(id).exec();
     if (!restaurant) {
-      throw new NotFoundException(`Restaurant ${id} not found`);
+      throw new NotFoundException(`Restaurant ${id.toString()} not found`);
     }
     return restaurant;
   }

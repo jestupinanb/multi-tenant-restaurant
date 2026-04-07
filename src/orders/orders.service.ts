@@ -28,7 +28,10 @@ export class OrdersService {
     for (const item of dto.items) {
       const menuItemId = new Types.ObjectId(item.menuItemId);
       // D-11: findOne uses compound { _id, restaurantId } — throws 404 on cross-tenant
-      const found = await this.menuItemsService.findOne(restaurantId, menuItemId);
+      const found = await this.menuItemsService.findOne(
+        restaurantId,
+        menuItemId,
+      );
       snapshotItems.push({
         menuItemId: found._id,
         name: found.name,

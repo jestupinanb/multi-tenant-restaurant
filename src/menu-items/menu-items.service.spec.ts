@@ -69,7 +69,9 @@ describe('MenuItemsService', () => {
 
       expect(result).toEqual({ data: [mockMenuItem], total: 1 });
       expect(mockModel.find).toHaveBeenCalledWith({ restaurantId });
-      expect(mockRestaurantsService.findById).toHaveBeenCalledWith(restaurantId);
+      expect(mockRestaurantsService.findById).toHaveBeenCalledWith(
+        restaurantId,
+      );
     });
 
     it('should return { data: [], total: 0 } when no items exist for restaurant', async () => {
@@ -87,7 +89,9 @@ describe('MenuItemsService', () => {
         new NotFoundException('Restaurant not found'),
       );
 
-      await expect(service.findAll(restaurantId)).rejects.toThrow(NotFoundException);
+      await expect(service.findAll(restaurantId)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 
@@ -100,7 +104,10 @@ describe('MenuItemsService', () => {
       const result = await service.findOne(restaurantId, itemId);
 
       expect(result).toEqual(mockMenuItem);
-      expect(mockModel.findOne).toHaveBeenCalledWith({ _id: itemId, restaurantId });
+      expect(mockModel.findOne).toHaveBeenCalledWith({
+        _id: itemId,
+        restaurantId,
+      });
     });
 
     it('should throw NotFoundException when item belongs to different restaurant (MENU-07)', async () => {
@@ -140,12 +147,18 @@ describe('MenuItemsService', () => {
     it('should create item with restaurantId from parameter (not DTO)', async () => {
       mockModel.create.mockResolvedValue(mockMenuItem);
 
-      const dto = { name: 'Test Burger', price: 9.99, description: 'A test burger' };
+      const dto = {
+        name: 'Test Burger',
+        price: 9.99,
+        description: 'A test burger',
+      };
       const result = await service.create(restaurantId, dto);
 
       expect(result).toEqual(mockMenuItem);
       expect(mockModel.create).toHaveBeenCalledWith({ ...dto, restaurantId });
-      expect(mockRestaurantsService.findById).toHaveBeenCalledWith(restaurantId);
+      expect(mockRestaurantsService.findById).toHaveBeenCalledWith(
+        restaurantId,
+      );
     });
 
     it('should throw ConflictException on duplicate name (error code 11000)', async () => {
@@ -156,7 +169,9 @@ describe('MenuItemsService', () => {
       ).rejects.toThrow(ConflictException);
       await expect(
         service.create(restaurantId, { name: 'Test Burger', price: 9.99 }),
-      ).rejects.toThrow('Menu item with this name already exists in this restaurant');
+      ).rejects.toThrow(
+        'Menu item with this name already exists in this restaurant',
+      );
     });
 
     it('should re-throw non-11000 errors', async () => {
@@ -201,9 +216,9 @@ describe('MenuItemsService', () => {
         exec: jest.fn().mockResolvedValue(null),
       });
 
-      await expect(service.update(restaurantId, itemId, { price: 14.99 })).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(
+        service.update(restaurantId, itemId, { price: 14.99 }),
+      ).rejects.toThrow(NotFoundException);
     });
 
     it('should throw ConflictException on duplicate name during update', async () => {
@@ -216,7 +231,9 @@ describe('MenuItemsService', () => {
       ).rejects.toThrow(ConflictException);
       await expect(
         service.update(restaurantId, itemId, { name: 'Duplicate Name' }),
-      ).rejects.toThrow('Menu item with this name already exists in this restaurant');
+      ).rejects.toThrow(
+        'Menu item with this name already exists in this restaurant',
+      );
     });
 
     it('should use compound query { _id, restaurantId } to prevent IDOR (D-11)', async () => {
@@ -274,7 +291,9 @@ describe('MenuItemsService', () => {
         exec: jest.fn().mockResolvedValue(null),
       });
 
-      await expect(service.remove(restaurantId, itemId)).rejects.toThrow(NotFoundException);
+      await expect(service.remove(restaurantId, itemId)).rejects.toThrow(
+        NotFoundException,
+      );
     });
 
     it('should use compound query { _id, restaurantId } to prevent IDOR (D-11)', async () => {
