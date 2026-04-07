@@ -129,7 +129,7 @@ describe('RestaurantsService', () => {
       expect(mockModel.findByIdAndUpdate).toHaveBeenCalledWith(
         mockRestaurant._id,
         dto,
-        { new: true },
+        { new: true, runValidators: true },
       );
     });
 

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Restaurant, RestaurantDocument } from './schemas/restaurant.schema';
@@ -36,20 +40,22 @@ export class RestaurantsService {
     }
   }
 
-  async update(id: Types.ObjectId, dto: UpdateRestaurantDto): Promise<RestaurantDocument> {
+  async update(
+    id: Types.ObjectId,
+    dto: UpdateRestaurantDto,
+  ): Promise<RestaurantDocument> {
+    let updated: RestaurantDocument | null;
     try {
-      const updated = await this.restaurantModel
-        .findByIdAndUpdate(id, dto, { new: true })
+      updated = await this.restaurantModel
+        .findByIdAndUpdate(id, dto, { new: true, runValidators: true })
         .exec();
-      if (!updated) {
-        throw new NotFoundException(`Restaurant ${id} not found`);
-      }
-      return updated;
     } catch (error) {
       if ((error as { code?: number })?.code === 11000) {
         throw new ConflictException('Restaurant with this name already exists');
       }
       throw error;
     }
+    if (!updated) throw new NotFoundException(`Restaurant ${id} not found`);
+    return updated;
   }
 }
