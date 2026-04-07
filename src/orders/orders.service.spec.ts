@@ -20,6 +20,7 @@ describe('OrdersService', () => {
     restaurantId,
     name: 'Burger',
     price: 9.99,
+    description: 'Juicy beef patty with lettuce and tomato.',
   };
 
   const mockMenuItem2 = {
@@ -27,6 +28,7 @@ describe('OrdersService', () => {
     restaurantId,
     name: 'Fries',
     price: 3.5,
+    description: 'Crispy golden french fries.',
   };
 
   const mockModel = {
@@ -72,6 +74,7 @@ describe('OrdersService', () => {
             menuItemId: menuItemId1,
             name: 'Burger',
             price: 9.99,
+            description: 'Juicy beef patty with lettuce and tomato.',
             quantity: 2,
           },
         ],
@@ -99,6 +102,7 @@ describe('OrdersService', () => {
               menuItemId: menuItemId1,
               name: 'Burger',
               price: 9.99,
+              description: 'Juicy beef patty with lettuce and tomato.',
               quantity: 2,
             }),
           ],
@@ -124,12 +128,13 @@ describe('OrdersService', () => {
       expect(createArg).not.toHaveProperty('status');
     });
 
-    it('should snapshot name and price from MenuItem lookup, not from DTO (SCHEMA-05)', async () => {
+    it('should snapshot name, price, and description from MenuItem lookup, not from DTO (SCHEMA-05)', async () => {
       const dbMenuItem = {
         _id: menuItemId1,
         restaurantId,
         name: 'DB Burger',
         price: 12.0,
+        description: 'A burger from the database.',
       };
 
       mockMenuItemsService.findOne.mockResolvedValue(dbMenuItem);
@@ -148,6 +153,7 @@ describe('OrdersService', () => {
             expect.objectContaining({
               name: 'DB Burger',
               price: 12.0,
+              description: 'A burger from the database.',
             }),
           ],
         }),

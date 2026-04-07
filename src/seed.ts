@@ -174,12 +174,16 @@ async function seed() {
           menuItemId: menuItemIds.bi1,
           name: 'Margherita Pizza',
           price: 12.99,
+          description:
+            'Classic Neapolitan pizza with San Marzano tomatoes, fresh mozzarella, and basil.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.bi3,
           name: 'Bruschetta',
           price: 8.99,
+          description:
+            'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
           quantity: 1,
         },
       ],
@@ -195,12 +199,16 @@ async function seed() {
           menuItemId: menuItemIds.bi2,
           name: 'Spaghetti Carbonara',
           price: 14.5,
+          description:
+            'Al dente spaghetti tossed with guanciale, eggs, Pecorino Romano, and black pepper.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi4,
           name: 'Tiramisu',
           price: 9.5,
+          description:
+            'Layers of espresso-soaked ladyfingers with mascarpone cream and cocoa dusting.',
           quantity: 2,
         },
       ],
@@ -216,12 +224,16 @@ async function seed() {
           menuItemId: menuItemIds.bi5,
           name: 'Risotto ai Funghi',
           price: 16.0,
+          description:
+            'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi3,
           name: 'Bruschetta',
           price: 8.99,
+          description:
+            'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
           quantity: 2,
         },
       ],
@@ -237,18 +249,24 @@ async function seed() {
           menuItemId: menuItemIds.bi1,
           name: 'Margherita Pizza',
           price: 12.99,
+          description:
+            'Classic Neapolitan pizza with San Marzano tomatoes, fresh mozzarella, and basil.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi2,
           name: 'Spaghetti Carbonara',
           price: 14.5,
+          description:
+            'Al dente spaghetti tossed with guanciale, eggs, Pecorino Romano, and black pepper.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi4,
           name: 'Tiramisu',
           price: 9.5,
+          description:
+            'Layers of espresso-soaked ladyfingers with mascarpone cream and cocoa dusting.',
           quantity: 1,
         },
       ],
@@ -264,6 +282,8 @@ async function seed() {
           menuItemId: menuItemIds.bi5,
           name: 'Risotto ai Funghi',
           price: 16.0,
+          description:
+            'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
           quantity: 2,
         },
       ],
@@ -279,12 +299,16 @@ async function seed() {
           menuItemId: menuItemIds.bi1,
           name: 'Margherita Pizza',
           price: 12.99,
+          description:
+            'Classic Neapolitan pizza with San Marzano tomatoes, fresh mozzarella, and basil.',
           quantity: 3,
         },
         {
           menuItemId: menuItemIds.bi3,
           name: 'Bruschetta',
           price: 8.99,
+          description:
+            'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
           quantity: 1,
         },
       ],
@@ -300,12 +324,16 @@ async function seed() {
           menuItemId: menuItemIds.bi2,
           name: 'Spaghetti Carbonara',
           price: 14.5,
+          description:
+            'Al dente spaghetti tossed with guanciale, eggs, Pecorino Romano, and black pepper.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.bi4,
           name: 'Tiramisu',
           price: 9.5,
+          description:
+            'Layers of espresso-soaked ladyfingers with mascarpone cream and cocoa dusting.',
           quantity: 1,
         },
       ],
@@ -321,18 +349,24 @@ async function seed() {
           menuItemId: menuItemIds.bi3,
           name: 'Bruschetta',
           price: 8.99,
+          description:
+            'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.bi5,
           name: 'Risotto ai Funghi',
           price: 16.0,
+          description:
+            'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi4,
           name: 'Tiramisu',
           price: 9.5,
+          description:
+            'Layers of espresso-soaked ladyfingers with mascarpone cream and cocoa dusting.',
           quantity: 2,
         },
       ],
@@ -348,12 +382,16 @@ async function seed() {
           menuItemId: menuItemIds.bi1,
           name: 'Margherita Pizza',
           price: 12.99,
+          description:
+            'Classic Neapolitan pizza with San Marzano tomatoes, fresh mozzarella, and basil.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi5,
           name: 'Risotto ai Funghi',
           price: 16.0,
+          description:
+            'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
           quantity: 1,
         },
       ],
@@ -369,12 +407,16 @@ async function seed() {
           menuItemId: menuItemIds.bi2,
           name: 'Spaghetti Carbonara',
           price: 14.5,
+          description:
+            'Al dente spaghetti tossed with guanciale, eggs, Pecorino Romano, and black pepper.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.bi3,
           name: 'Bruschetta',
           price: 8.99,
+          description:
+            'Grilled sourdough rubbed with garlic and topped with fresh tomatoes and basil.',
           quantity: 3,
         },
       ],
@@ -392,12 +434,16 @@ async function seed() {
           menuItemId: menuItemIds.di1,
           name: 'Kung Pao Chicken',
           price: 13.99,
+          description:
+            'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.di4,
           name: 'Fried Rice',
           price: 9.99,
+          description:
+            'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
           quantity: 1,
         },
       ],
@@ -413,12 +459,16 @@ async function seed() {
           menuItemId: menuItemIds.di3,
           name: 'Peking Duck',
           price: 24.99,
+          description:
+            'Crispy lacquered duck served with steamed pancakes, hoisin sauce, and scallions.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.di5,
           name: 'Spring Rolls',
           price: 7.5,
+          description:
+            'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
           quantity: 2,
         },
       ],
@@ -434,12 +484,16 @@ async function seed() {
           menuItemId: menuItemIds.di2,
           name: 'Dim Sum Platter',
           price: 11.5,
+          description:
+            'Assorted steamed dumplings including har gow, siu mai, and char siu bao.',
           quantity: 3,
         },
         {
           menuItemId: menuItemIds.di4,
           name: 'Fried Rice',
           price: 9.99,
+          description:
+            'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
           quantity: 1,
         },
       ],
@@ -455,18 +509,24 @@ async function seed() {
           menuItemId: menuItemIds.di1,
           name: 'Kung Pao Chicken',
           price: 13.99,
+          description:
+            'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.di2,
           name: 'Dim Sum Platter',
           price: 11.5,
+          description:
+            'Assorted steamed dumplings including har gow, siu mai, and char siu bao.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.di5,
           name: 'Spring Rolls',
           price: 7.5,
+          description:
+            'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
           quantity: 2,
         },
       ],
@@ -482,12 +542,16 @@ async function seed() {
           menuItemId: menuItemIds.di3,
           name: 'Peking Duck',
           price: 24.99,
+          description:
+            'Crispy lacquered duck served with steamed pancakes, hoisin sauce, and scallions.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.di4,
           name: 'Fried Rice',
           price: 9.99,
+          description:
+            'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
           quantity: 2,
         },
       ],
@@ -503,12 +567,16 @@ async function seed() {
           menuItemId: menuItemIds.di5,
           name: 'Spring Rolls',
           price: 7.5,
+          description:
+            'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
           quantity: 3,
         },
         {
           menuItemId: menuItemIds.di1,
           name: 'Kung Pao Chicken',
           price: 13.99,
+          description:
+            'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
           quantity: 1,
         },
       ],
@@ -524,12 +592,16 @@ async function seed() {
           menuItemId: menuItemIds.di2,
           name: 'Dim Sum Platter',
           price: 11.5,
+          description:
+            'Assorted steamed dumplings including har gow, siu mai, and char siu bao.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.di3,
           name: 'Peking Duck',
           price: 24.99,
+          description:
+            'Crispy lacquered duck served with steamed pancakes, hoisin sauce, and scallions.',
           quantity: 1,
         },
       ],
@@ -545,18 +617,24 @@ async function seed() {
           menuItemId: menuItemIds.di4,
           name: 'Fried Rice',
           price: 9.99,
+          description:
+            'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.di5,
           name: 'Spring Rolls',
           price: 7.5,
+          description:
+            'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.di1,
           name: 'Kung Pao Chicken',
           price: 13.99,
+          description:
+            'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
           quantity: 1,
         },
       ],
@@ -572,12 +650,16 @@ async function seed() {
           menuItemId: menuItemIds.di3,
           name: 'Peking Duck',
           price: 24.99,
+          description:
+            'Crispy lacquered duck served with steamed pancakes, hoisin sauce, and scallions.',
           quantity: 1,
         },
         {
           menuItemId: menuItemIds.di2,
           name: 'Dim Sum Platter',
           price: 11.5,
+          description:
+            'Assorted steamed dumplings including har gow, siu mai, and char siu bao.',
           quantity: 1,
         },
       ],
@@ -593,18 +675,24 @@ async function seed() {
           menuItemId: menuItemIds.di1,
           name: 'Kung Pao Chicken',
           price: 13.99,
+          description:
+            'Wok-tossed diced chicken with peanuts, dried chilies, and Sichuan peppercorn sauce.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.di5,
           name: 'Spring Rolls',
           price: 7.5,
+          description:
+            'Crispy golden rolls filled with seasoned vegetables and glass noodles.',
           quantity: 2,
         },
         {
           menuItemId: menuItemIds.di4,
           name: 'Fried Rice',
           price: 9.99,
+          description:
+            'Wok-fried jasmine rice with egg, vegetables, and soy-ginger glaze.',
           quantity: 1,
         },
       ],

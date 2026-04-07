@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Order, OrderDocument } from './schemas/order.schema';
+import { Order, OrderDocument, OrderItem } from './schemas/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { RestaurantsService } from '../restaurants/restaurants.service';
 import { MenuItemsService } from '../menu-items/menu-items.service';
@@ -24,7 +24,7 @@ export class OrdersService {
 
     // D-11 + D-12: iterate items, validate cross-tenant, snapshot prices
     let total = 0;
-    const snapshotItems = [];
+    const snapshotItems: OrderItem[] = [];
     for (const item of dto.items) {
       const menuItemId = new Types.ObjectId(item.menuItemId);
       // D-11: findOne uses compound { _id, restaurantId } — throws 404 on cross-tenant
@@ -36,6 +36,7 @@ export class OrdersService {
         menuItemId: found._id,
         name: found.name,
         price: found.price,
+        description: found.description ?? '',
         quantity: item.quantity,
       });
       total += found.price * item.quantity;
