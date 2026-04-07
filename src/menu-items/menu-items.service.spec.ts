@@ -295,9 +295,9 @@ describe('MenuItemsService', () => {
       mockModel.findOneAndDelete.mockReturnValue({
         exec: jest.fn().mockResolvedValue(null),
       });
-      await expect(
-        service.remove(otherRestaurantId, itemId),
-      ).rejects.toThrow(NotFoundException);
+      await expect(service.remove(otherRestaurantId, itemId)).rejects.toThrow(
+        NotFoundException,
+      );
     });
 
     it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
@@ -305,7 +305,9 @@ describe('MenuItemsService', () => {
         new NotFoundException('Restaurant not found'),
       );
 
-      await expect(service.remove(restaurantId, itemId)).rejects.toThrow(NotFoundException);
+      await expect(service.remove(restaurantId, itemId)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });
