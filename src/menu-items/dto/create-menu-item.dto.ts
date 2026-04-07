@@ -13,11 +13,11 @@ export class CreateMenuItemDto {
   @IsString()
   @MinLength(1)
   @MaxLength(100)
-  name: string;
+  name!: string;
 
   @IsNumber()
   @Min(0.01)
-  price: number;
+  price!: number;
 
   @IsOptional()
   @IsString()

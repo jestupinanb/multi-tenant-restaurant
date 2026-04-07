@@ -14,13 +14,13 @@ export type MenuItemDocument = MenuItem & Document;
 })
 export class MenuItem {
   @Prop({ type: Types.ObjectId, ref: 'Restaurant', required: true })
-  restaurantId: Types.ObjectId;
+  restaurantId!: Types.ObjectId;
 
   @Prop({ required: true, trim: true, minlength: 1, maxlength: 100 })
-  name: string;
+  name!: string;
 
   @Prop({ required: true, min: 0.01 })
-  price: number;
+  price!: number;
 
   @Prop({ maxlength: 500 })
   description?: string;

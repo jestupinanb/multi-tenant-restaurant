@@ -4,16 +4,19 @@ import { Document, Types } from 'mongoose';
 @Schema({ _id: false })
 export class OrderItem {
   @Prop({ type: Types.ObjectId, required: true })
-  menuItemId: Types.ObjectId;
+  menuItemId!: Types.ObjectId;
 
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true, min: 0 })
-  price: number;
+  price!: number;
+
+  @Prop({ default: '' })
+  description!: string;
 
   @Prop({ required: true, min: 1 })
-  quantity: number;
+  quantity!: number;
 }
 export const OrderItemSchema = SchemaFactory.createForClass(OrderItem);
 
@@ -30,19 +33,19 @@ export type OrderDocument = Order & Document;
 })
 export class Order {
   @Prop({ type: Types.ObjectId, ref: 'Restaurant', required: true })
-  restaurantId: Types.ObjectId;
+  restaurantId!: Types.ObjectId;
 
   @Prop({ required: true, trim: true, minlength: 1, maxlength: 100 })
-  customerName: string;
+  customerName!: string;
 
   @Prop({ type: [OrderItemSchema], required: true })
-  items: OrderItem[];
+  items!: OrderItem[];
 
   @Prop({ required: true, min: 0 })
-  totalAmount: number;
+  totalAmount!: number;
 
   @Prop({ type: String, enum: ['Pending', 'Completed'], default: 'Pending' })
-  status: string;
+  status!: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

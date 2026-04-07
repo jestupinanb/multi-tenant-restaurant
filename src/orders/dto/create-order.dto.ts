@@ -13,22 +13,22 @@ import { Type } from 'class-transformer';
 
 export class OrderItemDto {
   @IsMongoId()
-  menuItemId: string;
+  menuItemId!: string;
 
   @IsInt()
   @Min(1)
-  quantity: number;
+  quantity!: number;
 }
 
 export class CreateOrderDto {
   @IsString()
   @MinLength(1)
   @MaxLength(100)
-  customerName: string;
+  customerName!: string;
 
   @IsArray()
   @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => OrderItemDto)
-  items: OrderItemDto[];
+  items!: OrderItemDto[];
 }

@@ -20,7 +20,7 @@ export class Restaurant {
     minlength: 1,
     maxlength: 100,
   })
-  name: string;
+  name!: string;
 }
 
 export const RestaurantSchema = SchemaFactory.createForClass(Restaurant);
