@@ -18,14 +18,20 @@ describe('ParseObjectIdPipe', () => {
   });
 
   it('should throw BadRequestException for an invalid ObjectId string', () => {
-    expect(() => pipe.transform('not-an-objectid')).toThrow(BadRequestException);
-    expect(() => pipe.transform('not-an-objectid')).toThrow(
-      'Invalid id format: not-an-objectid',
-    );
+    const fn = () => pipe.transform('not-an-objectid');
+    expect(fn).toThrow(BadRequestException);
+    expect(fn).toThrow('Invalid id format: not-an-objectid');
   });
 
   it('should throw BadRequestException for an empty string', () => {
-    expect(() => pipe.transform('')).toThrow(BadRequestException);
-    expect(() => pipe.transform('')).toThrow('Invalid id format: ');
+    const fn = () => pipe.transform('');
+    expect(fn).toThrow(BadRequestException);
+    expect(fn).toThrow('Invalid id format: ');
+  });
+
+  it('should throw BadRequestException for a 12-character non-hex string', () => {
+    const fn = () => pipe.transform('123456789012');
+    expect(fn).toThrow(BadRequestException);
+    expect(fn).toThrow('Invalid id format: 123456789012');
   });
 });
