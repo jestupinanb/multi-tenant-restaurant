@@ -1,6 +1,7 @@
-import { IsString, IsNumber, IsOptional, MinLength, MaxLength, Min } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsNotEmpty, MinLength, MaxLength, Min } from 'class-validator';
 
 export class CreateMenuItemDto {
+  @IsNotEmpty()
   @IsString()
   @MinLength(1)
   @MaxLength(100)
