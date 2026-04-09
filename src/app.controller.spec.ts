@@ -18,7 +18,9 @@ describe('AppController', () => {
     it('should return health check status', () => {
       const result = appController.healthCheck();
       expect(result.status).toBe('ok');
-      expect(result.timestamp).toEqual(expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/));
+      expect(result.timestamp).toEqual(
+        expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/),
+      );
     });
   });
 });
