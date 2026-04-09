@@ -19,15 +19,15 @@ export class OrdersService {
     restaurantId: Types.ObjectId,
     dto: CreateOrderDto,
   ): Promise<OrderDocument> {
-    // D-13: verify restaurant exists first (throws 404 if not)
+    // Verify restaurant exists first (throws 404 if not)
     await this.restaurantsService.findById(restaurantId);
 
-    // D-11 + D-12: iterate items, validate cross-tenant, snapshot prices
+    // Iterate items: validate cross-tenant ownership and snapshot prices
     let total = 0;
     const snapshotItems: OrderItem[] = [];
     for (const item of dto.items) {
       const menuItemId = new Types.ObjectId(item.menuItemId);
-      // D-11: findOne uses compound { _id, restaurantId } — throws 404 on cross-tenant
+      // Compound { _id, restaurantId } query — throws 404 on cross-tenant access
       const found = await this.menuItemsService.findOne(
         restaurantId,
         menuItemId,
@@ -41,10 +41,9 @@ export class OrdersService {
       });
       total += found.price * item.quantity;
     }
-    // D-12: round to 2 decimal places
+    // Round to 2 decimal places
     const totalAmount = Math.round(total * 100) / 100;
 
-    // D-04: status defaults to 'Pending' via schema default
     return this.orderModel.create({
       restaurantId,
       customerName: dto.customerName,

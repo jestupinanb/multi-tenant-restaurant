@@ -7,7 +7,7 @@ import { OrderSchema } from './orders/schemas/order.schema';
 const MONGODB_URI =
   process.env.MONGODB_URI || 'mongodb://localhost:27017/restaurant-api';
 
-// Pre-allocated deterministic ObjectIds (D-09: hardcoded for Postman collection consistency)
+// Pre-allocated deterministic ObjectIds — hardcoded for Postman collection consistency
 const restaurantId1 = new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaa001');
 const restaurantId2 = new Types.ObjectId('aaaaaaaaaaaaaaaaaaaaa002');
 
@@ -63,7 +63,7 @@ async function seed() {
   const MenuItemModel = mongoose.model('MenuItem', MenuItemSchema);
   const OrderModel = mongoose.model('Order', OrderSchema);
 
-  // Idempotency: drop-and-reinsert (D-02)
+  // Idempotency: drop and reinsert
   await OrderModel.deleteMany({});
   await MenuItemModel.deleteMany({});
   await RestaurantModel.deleteMany({});
@@ -76,7 +76,6 @@ async function seed() {
 
   // Insert 10 menu items (5 per restaurant)
   await MenuItemModel.insertMany([
-    // Bella Napoli — Italian cuisine (D-04)
     {
       _id: menuItemIds.bi1,
       restaurantId: restaurantId1,
@@ -118,7 +117,6 @@ async function seed() {
         'Creamy Arborio rice with porcini mushrooms, white wine, and aged Parmesan.',
     },
 
-    // Dragon Palace — Chinese/Asian cuisine (D-04)
     {
       _id: menuItemIds.di1,
       restaurantId: restaurantId2,
@@ -161,7 +159,7 @@ async function seed() {
     },
   ]);
 
-  // Insert 20 orders (10 per restaurant) with varying items and quantities (D-06)
+  // Insert 20 orders (10 per restaurant) with varying items and quantities
   // totalAmount = sum(item.price * item.quantity)
   await OrderModel.insertMany([
     // Bella Napoli orders

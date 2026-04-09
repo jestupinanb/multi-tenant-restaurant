@@ -28,6 +28,6 @@ export class MenuItem {
 
 export const MenuItemSchema = SchemaFactory.createForClass(MenuItem);
 
-// SCHEMA-04: compound index for tenant-scoped queries (D-04)
+// Compound index for tenant-scoped queries
 // Unique prevents duplicate item names within a restaurant
 MenuItemSchema.index({ restaurantId: 1, name: 1 }, { unique: true });

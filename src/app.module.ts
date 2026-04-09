@@ -9,10 +9,9 @@ import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
-    // INFRA-04: ConfigModule global — must be first
+    // Must be first — other modules depend on ConfigService
     ConfigModule.forRoot({ isGlobal: true }),
 
-    // INFRA-02: MongoDB connection via env var
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -21,7 +20,6 @@ import { OrdersModule } from './orders/orders.module';
       inject: [ConfigService],
     }),
 
-    // Feature module stubs (populated in Phases 2–4)
     RestaurantsModule,
     MenuItemsModule,
     OrdersModule,
