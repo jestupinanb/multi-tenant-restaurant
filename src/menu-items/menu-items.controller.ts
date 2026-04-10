@@ -14,6 +14,7 @@ import { MenuItemsService } from './menu-items.service';
 import { CreateMenuItemDto } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDto } from './dto/update-menu-item.dto';
 import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { RestaurantId } from '../common/decorators/restaurant-id.decorator';
 
 @Controller('restaurants/:restaurantId/menu-items')
 export class MenuItemsController {
@@ -22,22 +23,20 @@ export class MenuItemsController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(
-    @Param('restaurantId', ParseObjectIdPipe) restaurantId: Types.ObjectId,
+    @RestaurantId() restaurantId: Types.ObjectId,
     @Body() dto: CreateMenuItemDto,
   ) {
     return this.menuItemsService.create(restaurantId, dto);
   }
 
   @Get()
-  findAll(
-    @Param('restaurantId', ParseObjectIdPipe) restaurantId: Types.ObjectId,
-  ) {
+  findAll(@RestaurantId() restaurantId: Types.ObjectId) {
     return this.menuItemsService.findAll(restaurantId);
   }
 
   @Get(':itemId')
   findOne(
-    @Param('restaurantId', ParseObjectIdPipe) restaurantId: Types.ObjectId,
+    @RestaurantId() restaurantId: Types.ObjectId,
     @Param('itemId', ParseObjectIdPipe) itemId: Types.ObjectId,
   ) {
     return this.menuItemsService.findOne(restaurantId, itemId);
@@ -45,7 +44,7 @@ export class MenuItemsController {
 
   @Patch(':itemId')
   update(
-    @Param('restaurantId', ParseObjectIdPipe) restaurantId: Types.ObjectId,
+    @RestaurantId() restaurantId: Types.ObjectId,
     @Param('itemId', ParseObjectIdPipe) itemId: Types.ObjectId,
     @Body() dto: UpdateMenuItemDto,
   ) {
@@ -55,7 +54,7 @@ export class MenuItemsController {
   @Delete(':itemId')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(
-    @Param('restaurantId', ParseObjectIdPipe) restaurantId: Types.ObjectId,
+    @RestaurantId() restaurantId: Types.ObjectId,
     @Param('itemId', ParseObjectIdPipe) itemId: Types.ObjectId,
   ) {
     return this.menuItemsService.remove(restaurantId, itemId);

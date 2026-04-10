@@ -4,14 +4,12 @@ import { NotFoundException } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { OrdersService } from './orders.service';
 import { Order } from './schemas/order.schema';
-import { RestaurantsService } from '../restaurants/restaurants.service';
 import { MenuItemsService } from '../menu-items/menu-items.service';
 
 describe('OrdersService', () => {
   let service: OrdersService;
 
   const restaurantId = new Types.ObjectId();
-  const otherRestaurantId = new Types.ObjectId();
   const menuItemId1 = new Types.ObjectId();
   const menuItemId2 = new Types.ObjectId();
 
@@ -35,10 +33,6 @@ describe('OrdersService', () => {
     create: jest.fn(),
   };
 
-  const mockRestaurantsService = {
-    findById: jest.fn(),
-  };
-
   const mockMenuItemsService = {
     findOne: jest.fn(),
   };
@@ -48,7 +42,6 @@ describe('OrdersService', () => {
       providers: [
         OrdersService,
         { provide: getModelToken(Order.name), useValue: mockModel },
-        { provide: RestaurantsService, useValue: mockRestaurantsService },
         { provide: MenuItemsService, useValue: mockMenuItemsService },
       ],
     }).compile();
@@ -56,11 +49,6 @@ describe('OrdersService', () => {
     service = module.get<OrdersService>(OrdersService);
 
     jest.clearAllMocks();
-    // Default: restaurant exists
-    mockRestaurantsService.findById.mockResolvedValue({
-      _id: restaurantId,
-      name: 'Test Restaurant',
-    });
   });
 
   describe('create', () => {
@@ -228,58 +216,6 @@ describe('OrdersService', () => {
       await expect(service.create(restaurantId, dto)).rejects.toThrow(
         NotFoundException,
       );
-    });
-
-    it('should throw NotFoundException when restaurant does not exist (D-13)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      const dto = {
-        customerName: 'John Doe',
-        items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
-      };
-
-      await expect(service.create(restaurantId, dto)).rejects.toThrow(
-        NotFoundException,
-      );
-    });
-
-    it('should call restaurantsService.findById before processing items (D-13 fail-fast)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      const dto = {
-        customerName: 'John Doe',
-        items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
-      };
-
-      await expect(service.create(restaurantId, dto)).rejects.toThrow(
-        NotFoundException,
-      );
-
-      // Verify menuItemsService was NOT called — restaurant check happens first
-      expect(mockMenuItemsService.findOne).not.toHaveBeenCalled();
-    });
-
-    it('should not call menuItemsService when restaurant does not exist (D-13 ordering)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      const dto = {
-        customerName: 'John Doe',
-        items: [{ menuItemId: menuItemId1.toHexString(), quantity: 1 }],
-      };
-
-      try {
-        await service.create(otherRestaurantId, dto);
-      } catch {
-        // expected
-      }
-
-      expect(mockMenuItemsService.findOne).not.toHaveBeenCalled();
     });
 
     it('should convert string menuItemId to Types.ObjectId before calling menuItemsService.findOne', async () => {

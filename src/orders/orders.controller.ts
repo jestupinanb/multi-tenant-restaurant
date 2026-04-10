@@ -1,15 +1,8 @@
-import {
-  Controller,
-  Post,
-  Param,
-  Body,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { ParseObjectIdPipe } from '../common/pipes/parse-object-id.pipe';
+import { RestaurantId } from '../common/decorators/restaurant-id.decorator';
 
 @Controller('restaurants/:restaurantId/orders')
 export class OrdersController {
@@ -18,7 +11,7 @@ export class OrdersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(
-    @Param('restaurantId', ParseObjectIdPipe) restaurantId: Types.ObjectId,
+    @RestaurantId() restaurantId: Types.ObjectId,
     @Body() dto: CreateOrderDto,
   ) {
     return this.ordersService.create(restaurantId, dto);

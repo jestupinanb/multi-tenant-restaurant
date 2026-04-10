@@ -8,20 +8,17 @@ import { Model, Types } from 'mongoose';
 import { MenuItem, MenuItemDocument } from './schemas/menu-item.schema';
 import { CreateMenuItemDto } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDto } from './dto/update-menu-item.dto';
-import { RestaurantsService } from '../restaurants/restaurants.service';
 
 @Injectable()
 export class MenuItemsService {
   constructor(
     @InjectModel(MenuItem.name)
     private readonly menuItemModel: Model<MenuItemDocument>,
-    private readonly restaurantsService: RestaurantsService,
   ) {}
 
   async findAll(
     restaurantId: Types.ObjectId,
   ): Promise<{ data: MenuItemDocument[]; total: number }> {
-    await this.restaurantsService.findById(restaurantId);
     const data = await this.menuItemModel.find({ restaurantId }).exec();
     return { data, total: data.length };
   }
@@ -30,7 +27,6 @@ export class MenuItemsService {
     restaurantId: Types.ObjectId,
     id: Types.ObjectId,
   ): Promise<MenuItemDocument> {
-    await this.restaurantsService.findById(restaurantId);
     const item = await this.menuItemModel
       .findOne({ _id: id, restaurantId })
       .exec();
@@ -43,7 +39,6 @@ export class MenuItemsService {
     restaurantId: Types.ObjectId,
     dto: CreateMenuItemDto,
   ): Promise<MenuItemDocument> {
-    await this.restaurantsService.findById(restaurantId);
     try {
       return await this.menuItemModel.create({ ...dto, restaurantId });
     } catch (error) {
@@ -61,7 +56,6 @@ export class MenuItemsService {
     id: Types.ObjectId,
     dto: UpdateMenuItemDto,
   ): Promise<MenuItemDocument> {
-    await this.restaurantsService.findById(restaurantId);
     let updated: MenuItemDocument | null;
     try {
       updated = await this.menuItemModel
@@ -88,7 +82,6 @@ export class MenuItemsService {
     restaurantId: Types.ObjectId,
     id: Types.ObjectId,
   ): Promise<void> {
-    await this.restaurantsService.findById(restaurantId);
     const deleted = await this.menuItemModel
       .findOneAndDelete({ _id: id, restaurantId })
       .exec();

@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Order, OrderDocument, OrderItem } from './schemas/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { RestaurantsService } from '../restaurants/restaurants.service';
 import { MenuItemsService } from '../menu-items/menu-items.service';
 
 @Injectable()
@@ -11,7 +10,6 @@ export class OrdersService {
   constructor(
     @InjectModel(Order.name)
     private readonly orderModel: Model<OrderDocument>,
-    private readonly restaurantsService: RestaurantsService,
     private readonly menuItemsService: MenuItemsService,
   ) {}
 
@@ -19,9 +17,6 @@ export class OrdersService {
     restaurantId: Types.ObjectId,
     dto: CreateOrderDto,
   ): Promise<OrderDocument> {
-    // Verify restaurant exists first (throws 404 if not)
-    await this.restaurantsService.findById(restaurantId);
-
     // Iterate items: validate cross-tenant ownership and snapshot prices
     let total = 0;
     const snapshotItems: OrderItem[] = [];

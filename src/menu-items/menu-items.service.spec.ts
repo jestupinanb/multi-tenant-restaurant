@@ -4,7 +4,6 @@ import { NotFoundException, ConflictException } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { MenuItemsService } from './menu-items.service';
 import { MenuItem } from './schemas/menu-item.schema';
-import { RestaurantsService } from '../restaurants/restaurants.service';
 
 describe('MenuItemsService', () => {
   let service: MenuItemsService;
@@ -36,27 +35,17 @@ describe('MenuItemsService', () => {
     create: jest.fn(),
   };
 
-  const mockRestaurantsService = {
-    findById: jest.fn(),
-  };
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         MenuItemsService,
         { provide: getModelToken(MenuItem.name), useValue: mockModel },
-        { provide: RestaurantsService, useValue: mockRestaurantsService },
       ],
     }).compile();
 
     service = module.get<MenuItemsService>(MenuItemsService);
 
     jest.clearAllMocks();
-    // Default: restaurant exists (D-01 base case)
-    mockRestaurantsService.findById.mockResolvedValue({
-      _id: restaurantId,
-      name: 'Test Restaurant',
-    });
   });
 
   describe('findAll', () => {
@@ -69,9 +58,6 @@ describe('MenuItemsService', () => {
 
       expect(result).toEqual({ data: [mockMenuItem], total: 1 });
       expect(mockModel.find).toHaveBeenCalledWith({ restaurantId });
-      expect(mockRestaurantsService.findById).toHaveBeenCalledWith(
-        restaurantId,
-      );
     });
 
     it('should return { data: [], total: 0 } when no items exist for restaurant', async () => {
@@ -82,16 +68,6 @@ describe('MenuItemsService', () => {
       const result = await service.findAll(restaurantId);
 
       expect(result).toEqual({ data: [], total: 0 });
-    });
-
-    it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      await expect(service.findAll(restaurantId)).rejects.toThrow(
-        NotFoundException,
-      );
     });
   });
 
@@ -131,16 +107,6 @@ describe('MenuItemsService', () => {
         NotFoundException,
       );
     });
-
-    it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      await expect(service.findOne(restaurantId, itemId)).rejects.toThrow(
-        NotFoundException,
-      );
-    });
   });
 
   describe('create', () => {
@@ -156,9 +122,6 @@ describe('MenuItemsService', () => {
 
       expect(result).toEqual(mockMenuItem);
       expect(mockModel.create).toHaveBeenCalledWith({ ...dto, restaurantId });
-      expect(mockRestaurantsService.findById).toHaveBeenCalledWith(
-        restaurantId,
-      );
     });
 
     it('should throw ConflictException on duplicate name (error code 11000)', async () => {
@@ -181,16 +144,6 @@ describe('MenuItemsService', () => {
       await expect(
         service.create(restaurantId, { name: 'Test Burger', price: 9.99 }),
       ).rejects.toThrow(originalError);
-    });
-
-    it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      await expect(
-        service.create(restaurantId, { name: 'Test Burger', price: 9.99 }),
-      ).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -259,16 +212,6 @@ describe('MenuItemsService', () => {
         service.update(otherRestaurantId, itemId, { price: 1.0 }),
       ).rejects.toThrow(NotFoundException);
     });
-
-    it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      await expect(
-        service.update(restaurantId, itemId, { price: 14.99 }),
-      ).rejects.toThrow(NotFoundException);
-    });
   });
 
   describe('remove', () => {
@@ -315,16 +258,6 @@ describe('MenuItemsService', () => {
         exec: jest.fn().mockResolvedValue(null),
       });
       await expect(service.remove(otherRestaurantId, itemId)).rejects.toThrow(
-        NotFoundException,
-      );
-    });
-
-    it('should throw NotFoundException when restaurant does not exist (D-01)', async () => {
-      mockRestaurantsService.findById.mockRejectedValue(
-        new NotFoundException('Restaurant not found'),
-      );
-
-      await expect(service.remove(restaurantId, itemId)).rejects.toThrow(
         NotFoundException,
       );
     });
