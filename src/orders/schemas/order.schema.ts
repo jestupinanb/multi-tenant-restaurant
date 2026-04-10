@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { tenantScopePlugin } from '../../common/plugins/tenant-scope.plugin';
 
 @Schema({ _id: false })
 export class OrderItem {
@@ -50,3 +51,4 @@ export class Order {
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
 OrderSchema.index({ restaurantId: 1 });
+OrderSchema.plugin(tenantScopePlugin);

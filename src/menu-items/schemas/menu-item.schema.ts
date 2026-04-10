@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { tenantScopePlugin } from '../../common/plugins/tenant-scope.plugin';
 
 export type MenuItemDocument = MenuItem & Document;
 
@@ -31,3 +32,4 @@ export const MenuItemSchema = SchemaFactory.createForClass(MenuItem);
 // Compound index for tenant-scoped queries
 // Unique prevents duplicate item names within a restaurant
 MenuItemSchema.index({ restaurantId: 1, name: 1 }, { unique: true });
+MenuItemSchema.plugin(tenantScopePlugin);
